@@ -523,11 +523,11 @@ span.text-red {
 	cursor: pointer;
 }
 .quantity-desc .minus {
-	border-right: 1px solid gray;
 	color: #1e90ff;
 }
 .quantity-desc .num {
 	border-right: 1px solid gray;
+	border-left: 1px solid gray;
 	font-size: 20px;
 }
 .quantity-desc .plus {
