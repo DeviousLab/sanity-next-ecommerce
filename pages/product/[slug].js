@@ -6,10 +6,10 @@ import Product from '../../components/Product';
 import { useStateContext } from '../../context/StateContext';
 
 const ProductDetails = ({ productsData, similarProductsData }) => {
-  const { image, name, description, price } = productsData;
+  const { image, name, description, price, reviews } = productsData;
   const [index, setIndex] = useState(0);
   const { decreaseQuantities, increaseQuantities, totalQuantities, addToCart } = useStateContext();
-
+  
   return (
     <div>
       <div className="product-detail-container">
@@ -34,7 +34,8 @@ const ProductDetails = ({ productsData, similarProductsData }) => {
               <AiOutlineStar />
             </div>
             <p>
-              ({Math.floor(Math.random() * 100) + 1}) Reviews
+              ({reviews}) Reviews
+              {console.log(reviews)}
             </p>
           </div>
           <h4>Product Details: </h4>
