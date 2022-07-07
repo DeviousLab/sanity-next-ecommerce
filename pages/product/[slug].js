@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineStar, AiFillStar } from 'react-icons/ai';
+import { useRouter } from 'next/router';
 
 import { urlFor, client } from '../../lib/client'
 import Product from '../../components/Product';
@@ -7,9 +8,25 @@ import { useStateContext } from '../../context/StateContext';
 
 const ProductDetails = ({ productsData, similarProductsData }) => {
   const { image, name, description, price, reviews } = productsData;
+  const { addToCart, setShowCart } = useStateContext();
+
   const [index, setIndex] = useState(0);
-  const { decreaseQuantities, increaseQuantities, totalQuantities, addToCart, setShowCart } = useStateContext();
+  const [totalQuantities, setTotalQuantities] = useState(1);
+  const dynamicRoute = useRouter().asPath;
+
+  const increaseQuantities = () => {
+    setTotalQuantities((prevQuantity) => prevQuantity + 1);
+  }
+
+  const decreaseQuantities = () => {
+    setTotalQuantities((prevQuantity) => {
+      if (prevQuantity - 1 < 1) return 1;
+      return prevQuantity - 1
+    });
+  }
   
+  useEffect(() => setTotalQuantities(1), [dynamicRoute]);
+
   const handleBuyNow = () => {
     addToCart(productsData, totalQuantities);
     setShowCart(true);
@@ -49,7 +66,9 @@ const ProductDetails = ({ productsData, similarProductsData }) => {
             <h3>Quantity: </h3>
             <p className="quantity-desc">
               <span className="minus" onClick={decreaseQuantities}><AiOutlineMinus /></span>
-              <span className="num">{totalQuantities}</span>
+              <span className="num">
+                {1 && totalQuantities}
+              </span>
               <span className="plus" onClick={increaseQuantities}><AiOutlinePlus /></span>
             </p>
           </div>
