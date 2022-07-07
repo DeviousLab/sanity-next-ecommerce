@@ -35,6 +35,11 @@ export default {
       name: 'description',
       title: 'Description',
       type: 'string'
+    },
+    {
+      name: 'reviews',
+      title: 'Reviews',
+      type: 'number'
     }
   ]
 }
